@@ -17,7 +17,7 @@ class BMICalulator extends StatelessWidget {
           bodyMedium: TextStyle(color: Colors.white),
         ),
       ),
-      home: const MyWidget(),
+      home: const HomePage(),
     );
   }
 }
