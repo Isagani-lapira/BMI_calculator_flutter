@@ -1,4 +1,9 @@
+import 'package:bmi_app/components/gender.dart';
+import 'package:bmi_app/components/reusable_card.dart';
 import 'package:flutter/material.dart';
+
+const Color activeCard = Color(0xFFEB1555);
+const Color inactiveCard = Color(0xFF1D1E33);
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -7,7 +12,17 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+enum GenderType { male, female, other }
+
 class _HomePageState extends State<HomePage> {
+  GenderType selectedGender = GenderType.other;
+
+  void cardSelected(GenderType genderType) {
+    setState(() {
+      selectedGender = genderType;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,20 +34,38 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Expanded(
-                      child: ReusableCard(
-                    icon: Icons.male,
-                    label: 'Male',
-                  )),
+                    child: ReusableCard(
+                      color: (selectedGender == GenderType.male)
+                          ? activeCard
+                          : inactiveCard,
+                      onPressed: () => cardSelected(GenderType.male),
+                      child:
+                          const Gender(genderIcon: Icons.male, label: 'Male'),
+                    ),
+                  ),
                   Expanded(
-                      child: ReusableCard(
-                    icon: Icons.female,
-                    label: 'Female',
-                  )),
+                    child: ReusableCard(
+                      color: selectedGender == GenderType.female
+                          ? activeCard
+                          : inactiveCard,
+                      onPressed: () => cardSelected(GenderType.female),
+                      child: const Gender(
+                          genderIcon: Icons.female, label: 'Female'),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Expanded(child: ReusableCard()),
-            Expanded(child: ReusableCard()),
+            const Expanded(
+              child: ReusableCard(
+                color: inactiveCard,
+              ),
+            ),
+            const Expanded(
+              child: ReusableCard(
+                color: inactiveCard,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextButton(
@@ -50,37 +83,6 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  IconData? icon;
-  String? label;
-  ReusableCard({super.key, this.icon, this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      decoration: const BoxDecoration(
-        color: Color(0xFF1D1E33),
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 55.0,
-            color: Colors.white,
-          ),
-          const SizedBox(height: 5.0),
-          Text(label ?? '')
-        ],
       ),
     );
   }
