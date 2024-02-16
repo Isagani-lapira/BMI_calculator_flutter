@@ -1,5 +1,4 @@
-import 'package:bmi_app/components/refractor.dart';
-// import 'package:bmi_app/components/reusable_card.dart';
+import 'package:bmi_app/components/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const BMICalulator());
