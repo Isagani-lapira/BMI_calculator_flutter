@@ -89,17 +89,25 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      Slider(
-                          value: _currentSliderValue,
-                          max: kMaxHeight,
-                          min: kMinHeight,
-                          activeColor: kActiveColor,
-                          inactiveColor: Colors.blue,
-                          onChanged: (double value) {
-                            setState(() {
-                              _currentSliderValue = value;
-                            });
-                          }),
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                            thumbColor: kActiveColor,
+                            activeTrackColor: kActiveColor,
+                            thumbShape: const RoundSliderThumbShape(
+                                enabledThumbRadius: 15.0),
+                            overlayShape: const RoundSliderOverlayShape(
+                                overlayRadius: 24.0),
+                            overlayColor: kOverlayColor),
+                        child: Slider(
+                            value: _currentSliderValue,
+                            max: kMaxHeight,
+                            min: kMinHeight,
+                            onChanged: (double value) {
+                              setState(() {
+                                _currentSliderValue = value;
+                              });
+                            }),
+                      ),
                     ]),
               ),
             ),
