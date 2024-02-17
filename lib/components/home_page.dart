@@ -1,9 +1,7 @@
+import 'package:bmi_app/components/constants.dart';
 import 'package:bmi_app/components/gender.dart';
 import 'package:bmi_app/components/reusable_card.dart';
 import 'package:flutter/material.dart';
-
-const Color activeCard = Color(0xFFEB1555);
-const Color inactiveCard = Color(0xFF1D1E33);
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +15,7 @@ enum GenderType { male, female, other }
 class _HomePageState extends State<HomePage> {
   GenderType selectedGender = GenderType.other;
 
+  double _currentSliderValue = 100.0;
   void cardSelected(GenderType genderType) {
     setState(() {
       selectedGender = genderType;
@@ -36,34 +35,77 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     child: ReusableCard(
                       color: (selectedGender == GenderType.male)
-                          ? activeCard
-                          : inactiveCard,
+                          ? kActiveColor
+                          : kInactiveColor,
                       onPressed: () => cardSelected(GenderType.male),
-                      child:
-                          const Gender(genderIcon: Icons.male, label: 'Male'),
+                      child: const Gender(
+                        genderIcon: Icons.male,
+                        label: 'Male',
+                        style: kTextStyle,
+                      ),
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
                       color: selectedGender == GenderType.female
-                          ? activeCard
-                          : inactiveCard,
+                          ? kActiveColor
+                          : kInactiveColor,
                       onPressed: () => cardSelected(GenderType.female),
                       child: const Gender(
-                          genderIcon: Icons.female, label: 'Female'),
+                        genderIcon: Icons.female,
+                        label: 'Female',
+                        style: kTextStyle,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            const Expanded(
+            // slider
+            Expanded(
               child: ReusableCard(
-                color: inactiveCard,
+                color: kInactiveColor,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Height',
+                        textAlign: TextAlign.center,
+                        style: kTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(_currentSliderValue.round().toString(),
+                              style: kHeightLabel),
+                          const Text(
+                            'cm',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Slider(
+                          value: _currentSliderValue,
+                          max: kMaxHeight,
+                          min: kMinHeight,
+                          activeColor: kActiveColor,
+                          inactiveColor: Colors.blue,
+                          onChanged: (double value) {
+                            setState(() {
+                              _currentSliderValue = value;
+                            });
+                          }),
+                    ]),
               ),
             ),
             const Expanded(
               child: ReusableCard(
-                color: inactiveCard,
+                color: kInactiveColor,
               ),
             ),
             Padding(
