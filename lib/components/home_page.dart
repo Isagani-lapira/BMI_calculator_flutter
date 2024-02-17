@@ -1,7 +1,10 @@
+import 'package:bmi_app/components/cirular_button.dart';
 import 'package:bmi_app/components/constants.dart';
 import 'package:bmi_app/components/gender.dart';
 import 'package:bmi_app/components/reusable_card.dart';
 import 'package:flutter/material.dart';
+
+import 'addminuscard.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +19,9 @@ class _HomePageState extends State<HomePage> {
   GenderType selectedGender = GenderType.other;
 
   double _currentSliderValue = 100.0;
+  int _currentWeight = 50;
+  int _currentAge = 18;
+
   void cardSelected(GenderType genderType) {
     setState(() {
       selectedGender = genderType;
@@ -111,9 +117,43 @@ class _HomePageState extends State<HomePage> {
                     ]),
               ),
             ),
-            const Expanded(
-              child: ReusableCard(
-                color: kInactiveColor,
+            Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AddMinusCard(
+                    label: 'Weight',
+                    currentData: _currentWeight.toString(),
+                    minusOnPressed: () {
+                      setState(() {
+                        (_currentWeight > 0)
+                            ? _currentWeight -= 1
+                            : _currentWeight;
+                      });
+                    },
+                    addOnPressed: () {
+                      setState(() {
+                        (_currentWeight < 200)
+                            ? _currentWeight += 1
+                            : _currentWeight;
+                      });
+                    },
+                  ),
+                  AddMinusCard(
+                    label: 'Age',
+                    currentData: _currentAge.toString(),
+                    minusOnPressed: () {
+                      setState(() {
+                        (_currentAge > 0) ? _currentAge -= 1 : _currentAge;
+                      });
+                    },
+                    addOnPressed: () {
+                      setState(() {
+                        (_currentAge < 150) ? _currentAge += 1 : _currentAge;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
             Padding(
