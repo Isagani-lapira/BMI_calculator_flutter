@@ -1,6 +1,7 @@
 import 'package:bmi_app/components/cirular_button.dart';
 import 'package:bmi_app/components/constants.dart';
 import 'package:bmi_app/components/gender.dart';
+import 'package:bmi_app/components/results_page.dart';
 import 'package:bmi_app/components/reusable_card.dart';
 import 'package:flutter/material.dart';
 
@@ -165,7 +166,12 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     backgroundColor: const Color(0xFFEB1555),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const ResultPage();
+                    }));
+                  },
                   child: const Text(
                     'Calculate',
                     style: TextStyle(color: Colors.white),
