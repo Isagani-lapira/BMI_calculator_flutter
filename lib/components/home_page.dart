@@ -1,3 +1,4 @@
+import 'package:bmi_app/components/calculator_brain.dart';
 import 'package:bmi_app/components/cirular_button.dart';
 import 'package:bmi_app/components/constants.dart';
 import 'package:bmi_app/components/gender.dart';
@@ -167,9 +168,18 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: const Color(0xFFEB1555),
                   ),
                   onPressed: () {
+                    CalculatorBrain calc = CalculatorBrain(
+                        height: _currentSliderValue.toInt(),
+                        weight: _currentWeight);
+
+                    double results = calc.calculateBMI();
+                    String status = calc.bmiStatus();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const ResultPage();
+                      return ResultPage(
+                        bmiResults: results,
+                        bmiStatus: status,
+                      );
                     }));
                   },
                   child: const Text(

@@ -3,7 +3,10 @@ import 'package:bmi_app/components/reusable_card.dart';
 import 'package:flutter/material.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+  final double bmiResults;
+  final String bmiStatus;
+  const ResultPage(
+      {super.key, required this.bmiResults, required this.bmiStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class ResultPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Expanded(
+              Expanded(
                 child: ReusableCard(
                   color: kInactiveColor,
                   child: Column(
@@ -30,32 +33,26 @@ class ResultPage extends StatelessWidget {
                     children: [
                       // status
                       Text(
-                        'Normal',
+                        bmiStatus,
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       // results
                       Text(
-                        '22.1',
-                        style: TextStyle(
+                        bmiResults.toStringAsFixed(1),
+                        style: const TextStyle(
                             fontSize: 64.0, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 15.0),
-                      Text(
+                      const SizedBox(height: 15.0),
+                      const Text(
                         'Normal BMI range:',
                         textAlign: TextAlign.center,
                       ),
-                      Text(
+                      const Text(
                         '18,5 - 25 kg/m2',
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 15.0),
-                      Text(
-                        'You have a normal body weight. Good job!',
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 15.0),
                     ],
                   ),
                 ),
