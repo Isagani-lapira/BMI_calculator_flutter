@@ -13,10 +13,13 @@ class BMICalulator extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF0A0C21),
         textTheme: const TextTheme(
           labelMedium: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white),
+          bodyMedium: TextStyle(color: Colors.white, fontSize: 18.0),
         ),
       ),
-      home: const HomePage(),
+      initialRoute: '/home',
+      routes: {
+        '/home': (context) => const HomePage(),
+      },
     );
   }
 }
